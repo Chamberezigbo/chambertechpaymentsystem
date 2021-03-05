@@ -82,11 +82,17 @@ function checkPayment() {
     for (let i = 0; i < allStaff.length; i++) {
 
         if (checkId == allStaff[i].id && allStaff[i].days >= 5 ) {
-            success.classList.remove('d-none')
-            success.innerHTML =  `dear ${allStaff[i].fullName} you can withdraw`
-            setTimeout(() => {
-                success.classList.add('d-none')
-            }, 1500);
+            for (let index = 0; index < allStaff.length; index++) {
+                if (allStaff[i].days >= 5) {
+                    success.classList.remove('d-none')
+                    success.innerHTML =  `dear ${allStaff[i].fullName} you can withdraw`
+                    setTimeout(() => {
+                        success.classList.add('d-none')
+                    }, 1500);
+                    return  
+                }
+            }
+           
         }else{
             info.classList.remove('d-none')
             info.innerHTML = `This ${checkId}ID cannot withdraw`
