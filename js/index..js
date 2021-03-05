@@ -31,9 +31,11 @@ let allStaff = [
     }
 ]
 
+// signing in function //
 function sign() {
    let getId = document.getElementById('staffId').value;
    let getDat = document.getElementById('staffDate').value;
+   let signInInfo = document.getElementById('signinInfo'); 
 
    if (getId == "" || getDat == "") {
        alert('enter valid input')
@@ -46,6 +48,10 @@ function sign() {
                     days : +allStaff[index].days + 1,
                     date : allStaff[index].date = getDat
                 }
+                signInInfo.classList.remove('d-none');
+                setTimeout(() => {
+                    signInInfo.classList.add('d-none');
+                }, 1000);
                 allStaff[index] = staff;
                 console.log(allStaff)
                 
@@ -56,25 +62,38 @@ function sign() {
 
 }
  
-function payStaff(params) {
+// checking for payment of the staff //
+function payStaff() {
     document.getElementById('paymentGateway').classList.remove('d-none')
 }
 
 function checkPayment() {
-    let checkId = document.getElementById("newStaffId").value
+    let checkId = document.getElementById("checkPaymentId").value
+    let danger = document.getElementById("danger")
+    let success = document.getElementById("success")
+    let info = document.getElementById("info")
     if (checkId == "") {
-        alert("Enter valid id")
+        danger.classList.remove('d-none')
+        setTimeout(() => {
+            danger.classList.add('d-none')
+        }, 2500);
+        return;
     }
     for (let i = 0; i < allStaff.length; i++) {
-        let success = document.getElementById("success")
-        let danger = document.getElementById("danger")
-        if (checkId == allStaff[i].id && allStaff[i].counter >= 5 ) {
-            alert("you can withdraw");
+
+        if (checkId == allStaff[i].id && allStaff[i].days >= 5 ) {
             success.classList.remove('d-none')
+            success.innerHTML =  `dear ${allStaff[i].fullName} you can withdraw`
+            setTimeout(() => {
+                success.classList.add('d-none')
+            }, 1500);
         }else{
-             alert("you cannot withdraw");
-            danger.classList.remove('d-none')
+            info.classList.remove('d-none')
+            info.innerHTML = `This ${checkId}ID cannot withdraw`
+            setTimeout(() => {
+                info.classList.add('d-none')
+            }, 2500);
             success.classList.add('d-none')
-        }return;
+        }
     }
 }
