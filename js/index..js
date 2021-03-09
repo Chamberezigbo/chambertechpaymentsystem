@@ -64,14 +64,14 @@ function sign() {
  
 // checking for payment of the staff //
 function payStaff() {
-    document.getElementById('paymentGateway').classList.remove('d-none')
+    document.getElementById('paymentGateway').classList.remove('d-none');
+    let info = document.getElementById("info").classList.add('d-none');
 }
 
 function checkPayment() {
     let checkId = document.getElementById("checkPaymentId").value
     let danger = document.getElementById("danger")
     let success = document.getElementById("success")
-    let info = document.getElementById("info")
     if (checkId == "") {
         danger.classList.remove('d-none')
         setTimeout(() => {
@@ -84,6 +84,7 @@ function checkPayment() {
         if (checkId == allStaff[i].id && allStaff[i].days >= 5 ) {
             for (let index = 0; index < allStaff.length; index++) {
                 if (allStaff[i].days >= 5) {
+                    info.classList.add('d-none')
                     success.classList.remove('d-none')
                     success.innerHTML =  `dear ${allStaff[i].fullName} you can withdraw`
                     setTimeout(() => {
